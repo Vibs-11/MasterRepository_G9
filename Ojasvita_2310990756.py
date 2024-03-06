@@ -49,19 +49,15 @@ def calculate_operation(operation):
     except ValueError:
         messagebox.showerror("Error", "Invalid input!")
 
-# GUI Setup
 root = tk.Tk()
 root.title("Calculator")
-root.configure(bg="#add8e6")  # Set background color to light blue
+root.configure(bg="#add8e6")  
 
-# Customizing the font for the GUI
 label_font = ("Helvetica", 12)
 
-# Label for dropdown
 dropdown_label = tk.Label(root, text="Operations:", bg="#add8e6", font=label_font)
 dropdown_label.grid(row=2, column=0, pady=10)
 
-# Dropdown menu
 options = [
     "Options",
     "Multiplication",
@@ -75,24 +71,21 @@ options = [
 ]
 
 selected_operation = tk.StringVar()
-selected_operation.set(options[0])  # Default value
+selected_operation.set(options[0])  
 
 operation_menu = tk.OptionMenu(root, selected_operation, *options[1:], command=lambda operation: calculate_operation(operation))
 operation_menu.config(bg="white", fg="black", font=label_font)
 operation_menu.grid(row=2, column=1, pady=10)
 
-# Output Text Box
 output_text = tk.Text(root, height=5, width=50, bg="white", fg="black")
 output_text.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
-# Labels for entry fields
 label1 = tk.Label(root, text="Number 1:", bg="#add8e6", font=label_font)
 label1.grid(row=0, column=0)
 
 label2 = tk.Label(root, text="Number 2:", bg="#add8e6", font=label_font)
 label2.grid(row=1, column=0)
 
-# Entry fields
 entry1 = tk.Entry(root)
 entry1.grid(row=0, column=1)
 
