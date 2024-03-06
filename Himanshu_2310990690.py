@@ -1,38 +1,93 @@
-print("Calculator to perform operation:")
-print("Select a number to perform corresponding action:")
-print("1 for multiplication, 2 for division, 3 for subtraction, 4 for exponent")
+import math
 
-def multiplication(num1, num2):
-    mul = num1 * num2
-    print("Multiplication of the two numbers is:", mul)
+print("Calculator to perform operation:: ")
+print(" Select a number to perform corresponding action: ")
+print(
+    " 1 for addition, 2 for subtraction, 3 for multiplication, 4 for division, "
+    "5 for exponentiation, 6 for square root, 7 for trigonometric functions, "
+    "8 for logarithm"
+)
 
-def division(num1, num2):
-    if num2 != 0:
-        div = num1 / num2
-        print("Division of the two numbers is:", div)
-    else:
-        print("Cannot divide by zero")
+
+def addition(num1, num2):
+    return num1 + num2
+
 
 def subtraction(num1, num2):
-    sub = num1 - num2
-    print("Subtraction of the two numbers is:", sub)
+    return num1 - num2
 
-def exponent(num1, num2):
-    exp = num1 ** num2
-    print("Exponentiation of the two numbers is:", exp)
 
-Operation = int(input("Select the number from 1, 2, 3, 4: "))
+def multiplication(num1, num2):
+    return num1 * num2
 
-num1 = int(input("Enter the first number: "))
-num2 = int(input("Enter the second number: "))
+
+def division(num1, num2):
+    if num2 == 0:
+        print("Error: Division by zero!")
+    else:
+        return num1 / num2
+
+
+def exponentiation(num1, num2):
+    return num1 ** num2
+
+
+def square_root(num):
+    if num < 0:
+        print("Error: Cannot calculate square root of a negative number!")
+    else:
+        return math.sqrt(num)
+
+
+def trigonometric_functions(num, func):
+    if func == 'sin':
+        return math.sin(math.radians(num))
+    elif func == 'cos':
+        return math.cos(math.radians(num))
+    elif func == 'tan':
+        return math.tan(math.radians(num))
+    elif func == 'asin':
+        return math.degrees(math.asin(num))
+    elif func == 'acos':
+        return math.degrees(math.acos(num))
+    elif func == 'atan':
+        return math.degrees(math.atan(num))
+    else:
+        print("Invalid trigonometric function!")
+
+
+def logarithm(num, base):
+    if num <= 0 or base <= 0 or base == 1:
+        print("Error: Invalid input for logarithm!")
+    else:
+        return math.log(num, base)
+
+
+Operation = int(input("Select the number from 1 to 8: "))
+
+if Operation in [1, 2, 3, 4, 5]:
+    num1 = float(input("Enter the first number: "))
+    num2 = float(input("Enter the Second number: "))
+else:
+    num = float(input("Enter the number: "))
 
 if Operation == 1:
-    multiplication(num1, num2)
+    print("Addition:", addition(num1, num2))
 elif Operation == 2:
-    division(num1, num2)
+    print("Subtraction:", subtraction(num1, num2))
 elif Operation == 3:
-    subtraction(num1, num2)
+    print("Multiplication:", multiplication(num1, num2))
 elif Operation == 4:
-    exponent(num1, num2)
+    print("Division:", division(num1, num2))
+elif Operation == 5:
+    print("Exponentiation:", exponentiation(num1, num2))
+elif Operation == 6:
+    print("Square Root:", square_root(num))
+elif Operation == 7:
+    func = input("Enter trigonometric function (sin, cos, tan, asin, acos, atan): ")
+    print("Result:", trigonometric_functions(num, func))
+elif Operation == 8:
+    base = float(input("Enter the base for logarithm: "))
+    print("Logarithm:", logarithm(num, base))
 else:
-    print("Invalid input. Please select a number from 1 to 4.")
+    print("Invalid operation selected.")
