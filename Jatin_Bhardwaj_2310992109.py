@@ -31,14 +31,10 @@ def factorial2(num2):
     fact1 = 1
     for j in range(1,num2+1):
         fact1=fact1*j
-    print("Factorial of First Number is=", end=" ")
+    print("Factorial of Second Number is=", end=" ")
     print(fact1)
     
-#     fact1 = 1
-#     for j in range(1,num2+1):
-#         fact2=fact*j
-#     print("Factorial of Second Number is=", end=" ")
-#     print(fact2)
+
     
 
 
