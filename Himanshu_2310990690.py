@@ -22,6 +22,7 @@ def exponent(num1, num2):
     print("Exponentiation of the two numbers is:", exp)
 
 Operation = int(input("Select the number from 1, 2, 3, 4: "))
+
 num1 = int(input("Enter the first number: "))
 num2 = int(input("Enter the second number: "))
 
