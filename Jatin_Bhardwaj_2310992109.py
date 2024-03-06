@@ -16,7 +16,7 @@ def subtraction(num1, num2):
     sub = num1 - num2
     print("Subraction of the two nos. is ::", sub)
 def exponent(num1, num2):
-    expo = num1+num2
+    expo = num1**num2
     print("Exponent of the two nos. is ::", expo)
 def addition(num1, num2):
     add = num1 + num2
