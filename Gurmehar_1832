@@ -1,0 +1,49 @@
+This is python program for calculator:
+
+import tkinter as tk
+from math import sqrt, exp, sin, cos, tan, log
+
+def evaluate_expression():
+    expression = entry_expression.get()
+    try:
+        result = eval(expression)
+        entry_expression.delete(0, tk.END)
+        entry_expression.insert(tk.END, str(result))
+    except Exception as e:
+        entry_expression.delete(0, tk.END)
+        entry_expression.insert(tk.END, "Error")
+
+def clear_entry():
+    entry_expression.delete(0, tk.END)
+
+def button_click(symbol):
+    entry_expression.insert(tk.END, symbol)
+
+root = tk.Tk()
+root.title("Scientific Calculator")
+
+entry_expression = tk.Entry(root, width=30, borderwidth=5)
+entry_expression.grid(row=0, column=0, columnspan=5)
+
+buttons = [
+    '7', '8', '9', '/', 'C',
+    '4', '5', '6', '*', '(',
+    '1', '2', '3', '-', ')',
+    '0', '.', '^', '+', '='
+]
+
+row_val = 1
+col_val = 0
+for button in buttons:
+    if button == '=':
+        tk.Button(root, text=button, padx=20, pady=10, command=evaluate_expression).grid(row=row_val, column=col_val, columnspan=2)
+    elif button == 'C':
+        tk.Button(root, text=button, padx=20, pady=10, command=clear_entry).grid(row=row_val, column=col_val)
+    else:
+        tk.Button(root, text=button, padx=20, pady=10, command=lambda symbol=button: button_click(symbol)).grid(row=row_val, column=col_val)
+    col_val += 1
+    if col_val > 4:
+        col_val = 0
+        row_val += 1
+
+root.mainloop()
