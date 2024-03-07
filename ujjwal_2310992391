@@ -1,0 +1,102 @@
+import math
+
+def multiplication(num1, num2):
+    mul = num1 * num2
+    print("Multiplication of the two numbers is:", mul)
+
+def division(num1, num2):
+    div = num1 / num2
+    print("Division of the two numbers is:", div)
+
+def addition(num1, num2):
+    add = num1 + num2
+    print("Addition of the two numbers is:", add)
+
+def subtraction(num1, num2):
+    sub = num1 - num2
+    print("Subtraction of the two numbers is:", sub)
+
+def exponent(num1, num2):
+    exp = num1 ** num2
+    print("Exponent of the two numbers is:", exp)
+
+def square_root(num1):
+    square = math.sqrt(num1)
+    print("Square root of the number is:", square)
+
+def tangent(num1):
+    tan = math.tan(num1)
+    print("Tangent of the number is:", tan)
+
+def sine(num1):
+    sin = math.sin(num1)
+    print("Sine of the number is:", sin)
+
+def cosine(num1):
+    cos = math.cos(num1)
+    print("Cosine of the number is:", cos)
+
+def scientific_calculator():
+    print("Welcome to the Scientific Calculator!")
+    print("Select an operation:")
+    print("1. Square root")
+    print("2. Tangent")
+    print("3. Sine")
+    print("4. Cosine")
+    choice = int(input("Enter your choice (1/2/3/4): "))
+
+    if choice == 1:
+        num = float(input("Enter a number: "))
+        square_root(num)
+    elif choice == 2:
+        num = float(input("Enter an angle in radians: "))
+        tangent(num)
+    elif choice == 3:
+        num = float(input("Enter an angle in radians: "))
+        sine(num)
+    elif choice == 4:
+        num = float(input("Enter an angle in radians: "))
+        cosine(num)
+    else:
+        print("Invalid choice. Please select 1, 2, 3, or 4.")
+
+
+print("Calculator to perform operations:")
+print("Select a number to perform the corresponding action:")
+print("1. Multiplication")
+print("2. Division")
+print("3. Subtraction")
+print("4. Exponent")
+print("5. Addition")
+print("6. Remainder of division")
+print("7. Square root")
+print("8. Trigonometric functions")
+print("9. Scientific calculator")
+
+choice = int(input("Enter your choice (1-9): "))
+
+if choice in [1, 2, 3, 4, 5, 6]:
+    num1 = float(input("Enter the first number: "))
+    num2 = float(input("Enter the second number: "))
+    if choice == 1:
+        multiplication(num1, num2)
+    elif choice == 2:
+        division(num1, num2)
+    elif choice == 3:
+        subtraction(num1, num2)
+    elif choice == 4:
+        exponent(num1, num2)
+    elif choice == 5:
+        addition(num1, num2)
+    elif choice == 6:
+        remainder = num1 % num2
+        print("Remainder of division is:", remainder)
+elif choice == 7:
+    num = float(input("Enter a number: "))
+    square_root(num)
+elif choice == 8:
+    scientific_calculator()
+elif choice == 9:
+    print("Exiting the calculator. Have a great day!")
+else:
+    print("Invalid choice. Please select a valid option
