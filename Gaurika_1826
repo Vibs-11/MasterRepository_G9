@@ -1,0 +1,79 @@
+THIS IS A PROGRAM FOR SCIENTIFIC CALCULATOR USING GUI..
+
+
+import tkinter as tk
+from tkinter import messagebox
+import math
+
+def calculate():
+    num1 = float(entry_num1.get())
+    num2 = float(entry_num2.get())
+    operator = entry_operator.get()
+
+    if operator == "+":
+        result = num1 + num2
+    elif operator == "-":
+        result = num1 - num2
+    elif operator == "*":
+        result = num1 * num2
+    elif operator == "/":
+        if num2 != 0:
+            result = num1 / num2
+        else:
+            messagebox.showerror("Error", "Cannot divide by zero!")
+            return
+    elif operator == "log":
+        if num1 > 0 and num2 > 0:
+            result = math.log(num2, num1)
+        else:
+            messagebox.showerror("Error", "Invalid input for logarithm!")
+            return
+    elif operator == "exp":
+        result = num1 ** num2
+    elif operator == "sin":
+        result = math.sin(num1)
+    elif operator == "cos":
+        result = math.cos(num1)
+    elif operator == "tan":
+        result = math.tan(num1)
+    else:
+        messagebox.showerror("Error", "Invalid operator!")
+        return
+
+    label_result.config(text="Result: " + str(result))
+
+root = tk.Tk()
+root.title("Scientific Calculator")
+
+# Styling
+root.geometry("300x250")
+root.resizable(False, False)
+
+frame = tk.Frame(root, bg="#f0f0f0", padx=10, pady=10)
+frame.pack(fill=tk.BOTH, expand=True)
+
+label_num1 = tk.Label(frame, text="Number 1:", bg="#f0f0f0")
+label_num1.grid(row=0, column=0, pady=5)
+
+entry_num1 = tk.Entry(frame)
+entry_num1.grid(row=0, column=1, pady=5)
+
+label_operator = tk.Label(frame, text="Operator:", bg="#f0f0f0")
+label_operator.grid(row=1, column=0, pady=5)
+
+entry_operator = tk.Entry(frame)
+entry_operator.grid(row=1, column=1, pady=5)
+
+label_num2 = tk.Label(frame, text="Number 2:", bg="#f0f0f0")
+label_num2.grid(row=2, column=0, pady=5)
+
+entry_num2 = tk.Entry(frame)
+entry_num2.grid(row=2, column=1, pady=5)
+
+btn_calculate = tk.Button(frame, text="Calculate", command=calculate, bg="#4CAF50", fg="white", pady=8)
+btn_calculate.grid(row=3, column=0, columnspan=2, pady=10)
+
+label_result = tk.Label(frame, text="Result: ", bg="#f0f0f0")
+label_result.grid(row=4, column=0, columnspan=2, pady=5)
+
+root.mainloop()
