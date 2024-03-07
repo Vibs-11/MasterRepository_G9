@@ -1,0 +1,56 @@
+import tkinter as tk
+
+def calculate():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        operation = operator_var.get()
+
+        if operation == "+":
+            result = num1 + num2
+        elif operation == "-":
+            result = num1 - num2
+        elif operation == "*":
+            result = num1 * num2
+        elif operation == "/":
+            if num2 != 0:
+                result = num1 / num2
+            else:
+                result = "Error: Division by zero"
+        else:
+            result = "Invalid operation"
+
+        result_label.config(text="Result: " + str(result))
+    except ValueError:
+        result_label.config(text="Error: Enter valid numbers")
+
+# Create main window
+window = tk.Tk()
+window.title("Graphical Calculator")
+
+# Entry widgets for numbers
+entry_num1 = tk.Entry(window)
+entry_num2 = tk.Entry(window)
+
+# Label and entry for operation
+operator_var = tk.StringVar()
+operator_var.set("+")
+operator_menu = tk.OptionMenu(window, operator_var, "+", "-", "*", "/")
+operator_label = tk.Label(window, text="Operation:")
+
+# Button to perform calculation
+calculate_button = tk.Button(window, text="Calculate", command=calculate)
+
+# Label to display result
+result_label = tk.Label(window, text="Result: ")
+
+# Arrange widgets using the grid layout
+entry_num1.grid(row=0, column=0)
+operator_label.grid(row=0, column=1)
+operator_menu.grid(row=0, column=2)
+entry_num2.grid(row=0, column=3)
+calculate_button.grid(row=1, column=0, columnspan=4)
+result_label.grid(row=2, column=0, columnspan=4)
+
+# Run the main loop
+window.mainloop()
