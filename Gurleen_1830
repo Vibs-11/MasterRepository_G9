@@ -1,0 +1,59 @@
+import tkinter as tk
+from tkinter import ttk
+import math
+def calculate():
+    num1 = float(entry_num1.get())
+    num2 = float(entry_num2.get())
+    operation = combo_operation.get()
+    
+    if operation == 'Multiplication':
+        result = num1 * num2
+    elif operation == 'Division':
+        if num2 == 0:
+            result = 'Error (Div by 0)'
+        else:
+            result = num1 / num2
+    elif operation == 'Subtraction':
+        result = num1 - num2
+    elif operation == 'Exponent':
+        result = num1 ** num2
+    elif operation in ('Sin', 'Cos', 'Tan'):
+        angle = math.radians(num1) 
+        if operation == 'Sin':
+            result = math.sin(angle)
+        elif operation == 'Cos':
+            result = math.cos(angle)
+        elif operation == 'Tan':
+            result = math.tan(angle)
+    elif operation == 'Exponential':
+        result = math.exp(num1)
+    else:
+        result = 'Invalid Operation'
+    
+    result_label.config(text=f"Result: {result}")
+
+root = tk.Tk()
+root.title("Calculator")
+
+entry_num1 = ttk.Entry(root, width=15, style='Custom.TEntry')
+entry_num1.grid(column=0, row=0, padx=5, pady=5)
+
+combo_operation = ttk.Combobox(root, width=12, state="readonly", style='Custom.TCombobox',
+                               values=["Multiplication", "Division", "Subtraction", "Exponent", "Sin", "Cos", "Tan", "Exponential"])
+combo_operation.grid(column=1, row=0, padx=5, pady=5)
+combo_operation.current(0)
+
+entry_num2 = ttk.Entry(root, width=15, style='Custom.TEntry')
+entry_num2.grid(column=2, row=0, padx=5, pady=5)
+
+calculate_button = ttk.Button(root, text="Calculate", command=calculate, style='Custom.TButton')
+calculate_button.grid(column=1, row=1, padx=5, pady=5)
+
+result_label = ttk.Label(root, text="Result: ", style='Custom.TLabel')
+result_label.grid(column=1, row=2, padx=5, pady=5)
+style = ttk.Style()
+style.configure('Custom.TEntry', foreground='black', background='lightyellow')
+style.configure('Custom.TCombobox', foreground='black', background='lightblue')
+style.configure('Custom.TButton', foreground='green', background='darkgreen') 
+style.configure('Custom.TLabel', foreground='green', background='lightgray')
+root.mainloop()
