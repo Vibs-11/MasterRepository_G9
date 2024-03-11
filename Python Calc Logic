@@ -1,0 +1,135 @@
+import math
+import tkinter as tk
+
+
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y != 0:
+        return x / y
+    else:
+        return "Cannot divide by zero"
+
+def square(x):
+    return x ** 2
+
+def square_root(x):
+    if x >= 0:
+        return math.sqrt(x)
+    else:
+        return "Cannot calculate square root of a negative number"
+
+def sin(x):
+    return math.sin(math.radians(x))
+
+def cos(x):
+    return math.cos(math.radians(x))
+
+def tan(x):
+    return math.tan(math.radians(x))
+
+def modulo(x, y):
+    if y != 0:
+        return x % y
+    else:
+        return "Cannot calculate modulo with zero divisor"
+
+def log(x, base):
+    if x > 0 and base > 0 and base != 1:
+        return math.log(x, base)
+    else:
+        return "Invalid input for logarithm"
+
+
+def square_gui():
+    num = float(entry_var.get())
+    result = square(num)
+    entry_var.set(result)
+
+
+def sine():
+    num = float(entry_var.get())
+    result = sin(num)
+    entry_var.set(result)
+
+def cosine():
+    num = float(entry_var.get())
+    result = cos(num)
+    entry_var.set(result)
+
+def tangent():
+    num = float(entry_var.get())
+    result = tan(num)
+    entry_var.set(result)
+
+def square_root_gui():
+    num = float(entry_var.get())
+    result = square_root(num)
+    entry_var.set(result)
+
+
+root = tk.Tk()
+root.title("Calculator")
+
+entry_var = tk.StringVar()
+entry = tk.Entry(root, textvariable=entry_var, justify='right', font=('Arial', 14))
+entry.grid(row=0, column=0, columnspan=5)
+
+buttons = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', '.', '=', '+',
+    'C', 'sin', 'cos', 'tan', 'sqrt', 'x^2'
+]
+
+row_val = 1
+col_val = 0
+for button_text in buttons:
+    if button_text in ('sin', 'cos', 'tan', 'sqrt', 'x^2'):
+        tk.Button(root, text=button_text, padx=20, pady=20, font=('Arial', 12),
+                  command=lambda bt=button_text: on_trig_or_sqrt_or_square_click(bt)).grid(row=row_val, column=col_val)
+    else:
+        tk.Button(root, text=button_text, padx=20, pady=20, font=('Arial', 12),
+                  command=lambda bt=button_text: on_click(bt)).grid(row=row_val, column=col_val)
+
+    col_val += 1
+    if col_val > 4:
+        col_val = 0
+        row_val += 1
+
+
+def on_click(button_text):
+    current_text = entry_var.get()
+
+    if button_text == 'C':
+        entry_var.set('')
+    elif button_text == '=':
+        try:
+            result = eval(current_text)
+            entry_var.set(result)
+        except Exception as e:
+            entry_var.set('Error')
+    else:
+        entry_var.set(current_text + button_text)
+
+def on_trig_or_sqrt_or_square_click(button_text):
+    if button_text == 'sin':
+        sine()
+    elif button_text == 'cos':
+        cosine()
+    elif button_text == 'tan':
+        tangent()
+    elif button_text == 'sqrt':
+        square_root_gui()
+    elif button_text == 'x^2':
+        square_gui()
+
+root.mainloop()
