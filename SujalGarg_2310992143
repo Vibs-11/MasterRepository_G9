@@ -38,7 +38,12 @@ def exponent():
     result = num1 ** num2
     result_label.config(text=f"Result: {result}")
 
-# Function to perform the selected operation
+# Function to clear input fields and result label
+def clear():
+    entry_num1.delete(0, tk.END)
+    entry_num2.delete(0, tk.END)
+    result_label.config(text="Result: ")
+
 def perform_operation():
     operation = operation_var.get()
     if operation == "Multiplication":
@@ -51,12 +56,6 @@ def perform_operation():
         addition()
     elif operation == "Exponent":
         exponent()
-
-# Function to clear input fields and result label
-def clear():
-    entry_num1.delete(0, tk.END)
-    entry_num2.delete(0, tk.END)
-    result_label.config(text="Result: ")
 
 # Create GUI
 root = tk.Tk()
@@ -78,15 +77,16 @@ entry_num2.grid(row=1, column=1)
 # Operation dropdown
 operations = ["Multiplication", "Division", "Subtraction", "Addition", "Exponent"]
 operation_var = tk.StringVar(root)
-operation_var.set(operations[0])  # default value
 operation_dropdown = tk.OptionMenu(root, operation_var, *operations)
 operation_dropdown.grid(row=2, column=1)
 
-# Buttons for performing operations and clearing
+# Buttons for performing operations, clear, and exiting
 btn_calculate = tk.Button(root, text="Calculate", command=perform_operation)
 btn_calculate.grid(row=4, column=0, columnspan=2, pady=5)
 
 btn_clear = tk.Button(root, text="Clear", command=clear)
 btn_clear.grid(row=5, column=0, columnspan=2, pady=5)
+
+
 
 root.mainloop()
