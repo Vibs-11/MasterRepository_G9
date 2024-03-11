@@ -4,25 +4,25 @@ def multiplication():
   num1 = int(entry_num1.get())
   num2 = int(entry_num2.get())
   mul = num1 * num2
-  result_label.config(text=f"{num1} * {num2} = {mul}")
+  result_label.config(text="Multiplication of the two numbers is: " + str(mul))
 
 def division():
   num1 = int(entry_num1.get())
   num2 = int(entry_num2.get())
   div = num1 / num2
-  result_label.config(text=f"{num1} / {num2} = {div}")
+  result_label.config(text="Division of the two numbers is: " + str(div))
 
 def subtraction():
   num1 = int(entry_num1.get())
   num2 = int(entry_num2.get())
   sub = num1 - num2
-  result_label.config(text=f"{num1} - {num2} = {sub}")  
+  result_label.config(text="Subtraction of the two numbers is: " + str(sub))
 
 def exponent():
   num1 = int(entry_num1.get())
   num2 = int(entry_num2.get())
   exp = num1 ** num2
-  result_label.config(text=f"{num1} ^ {num2} = {exp}")
+  result_label.config(text="Exponent of the two numbers is: " + str(exp))
 
 # Create the main window
 window = tk.Tk()
