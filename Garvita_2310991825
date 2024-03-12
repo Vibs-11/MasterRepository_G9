@@ -1,0 +1,18 @@
+def calculate(expression):
+    try:
+        result = eval(expression)
+        return result
+    except Exception as e:
+        return "Error! Invalid expression."
+
+print("Simple Calculator")
+print("Enter 'quit' to exit")
+
+while True:
+    expression = input("Enter expression: ")
+
+    if expression.lower() == 'quit':
+        break
+
+    result = calculate(expression)
+    print("Result:", result)
