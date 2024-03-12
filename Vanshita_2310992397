@@ -1,0 +1,66 @@
+import math
+
+def scientific_calculator():
+    print("Welcome to the Scientific Calculator!")
+    print("Choose operation:")
+    print("1. Addition (+)")
+    print("2. Subtraction (-)")
+    print("3. Multiplication (*)")
+    print("4. Division (/)")
+    print("5. Exponentiation (x^y)")
+    print("6. Square Root (√)")
+    print("7. Trigonometric Functions")
+    print("8. Exit")
+
+    while True:
+        choice = input("Enter choice (1/2/3/4/5/6/7/8): ")
+
+        if choice == '8':
+            print("Exiting the calculator.")
+            break
+        elif choice == '1':
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+            print("Result:", num1 + num2)
+        elif choice == '2':
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+            print("Result:", num1 - num2)
+        elif choice == '3':
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+            print("Result:", num1 * num2)
+        elif choice == '4':
+            num1 = float(input("Enter dividend: "))
+            num2 = float(input("Enter divisor: "))
+            if num2 == 0:
+                print("Error! Division by zero is not allowed.")
+            else:
+                print("Result:", num1 / num2)
+        elif choice == '5':
+            base = float(input("Enter base number: "))
+            exponent = float(input("Enter exponent: "))
+            print("Result:", base ** exponent)
+        elif choice == '6':
+            num = float(input("Enter a number: "))
+            print("Square Root:", math.sqrt(num))
+        elif choice == '7':
+            print("Trigonometric Functions:")
+            print("1. Sine (sin)")
+            print("2. Cosine (cos)")
+            print("3. Tangent (tan)")
+            trig_choice = input("Enter choice (1/2/3): ")
+            angle = float(input("Enter angle in degrees: "))
+            if trig_choice == '1':
+                print("Result:", math.sin(math.radians(angle)))
+            elif trig_choice == '2':
+                print("Result:", math.cos(math.radians(angle)))
+            elif trig_choice == '3':
+                print("Result:", math.tan(math.radians(angle)))
+            else:
+                print("Invalid choice!")
+        else:
+            print("Invalid choice! Please enter a valid option.")
+
+# Run the calculator
+scientific_calculator()
