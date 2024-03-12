@@ -1,0 +1,3 @@
+This is the file to create merge conflict.
+This is the file to create merge conflict.\nThis file is in another branchgit checkout Gitbranch_01\nWe are here to create conflictgit checkout Gitbranch_01
+This file is to create merge conflict
