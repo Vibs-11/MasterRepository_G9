@@ -1,50 +1,60 @@
 import tkinter as tk
 import math
 
-# Function to add text to the input field
-def add_to_input(value):
-    entry.insert(tk.END, value)
+def button_click(symbol):
+    current = display.get()
+    if current == 'Error':
+        display.delete(0, tk.END)
+        current = ''
+    display.delete(0, tk.END)
+    display.insert(tk.END, current + symbol)
 
-# Function to calculate the result
-def calculate_result():
+def calculate():
     try:
-        expression = entry.get()
-        result = eval(expression)
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, str(result))
-    except Exception as e:
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, "Error")
+        result = eval(display.get())
+        display.delete(0, tk.END)
+        display.insert(tk.END, str(result))
+    except:
+        display.delete(0, tk.END)
+        display.insert(tk.END, 'Error')
 
-# Function to calculate trigonometric functions
-def trig_function(func):
+def clear():
+    display.delete(0, tk.END)
+
+def sin():
     try:
-        value = float(entry.get())
-        result = func(math.radians(value))
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, str(result))
-    except Exception as e:
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, "Error")
+        result = math.sin(math.radians(float(display.get())))
+        display.delete(0, tk.END)
+        display.insert(tk.END, str(result))
+    except:
+        display.delete(0, tk.END)
+        display.insert(tk.END, 'Error')
 
-# Function to calculate exponential function
-def calculate_exp():
+def cos():
     try:
-        value = float(entry.get())
-        result = math.exp(value)
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, str(result))
-    except Exception as e:
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, "Error")
+        result = math.cos(math.radians(float(display.get())))
+        display.delete(0, tk.END)
+        display.insert(tk.END, str(result))
+    except:
+        display.delete(0, tk.END)
+        display.insert(tk.END, 'Error')
 
-# Create main window
+def tan():
+    try:
+        result = math.tan(math.radians(float(display.get())))
+        display.delete(0, tk.END)
+        display.insert(tk.END, str(result))
+    except:
+        display.delete(0, tk.END)
+        display.insert(tk.END, 'Error')
+
+# Create the main window
 root = tk.Tk()
 root.title("Calculator")
 
-# Entry widget to display input and output
-entry = tk.Entry(root, width=40, borderwidth=5)
-entry.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
+# Create the display
+display = tk.Entry(root, width=30, borderwidth=5)
+display.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 # Define buttons
 buttons = [
@@ -53,22 +63,25 @@ buttons = [
     ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
     ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
     ('sin', 1, 4), ('cos', 2, 4), ('tan', 3, 4),
-    ('^', 5, 0), ('exp', 5, 1)
 ]
 
-# Create buttons with respective commands
+# Add buttons to the window
 for (text, row, column) in buttons:
-    if text == '=':
-        btn = tk.Button(root, text=text, padx=30, pady=20, command=calculate_result)
-    elif text in ['sin', 'cos', 'tan']:
-        func = getattr(math, text)
-        btn = tk.Button(root, text=text, padx=30, pady=20, command=lambda f=func: trig_function(f))
-    elif text == '^':
-        btn = tk.Button(root, text=text, padx=30, pady=20, command=lambda: add_to_input('**'))
-    elif text == 'exp':
-        btn = tk.Button(root, text=text, padx=30, pady=20, command=calculate_exp)
+    if text in ('sin', 'cos', 'tan'):
+        button = tk.Button(root, text=text, padx=10, pady=10)
+        if text == 'sin':
+            button.config(command=sin)
+        elif text == 'cos':
+            button.config(command=cos)
+        elif text == 'tan':
+            button.config(command=tan)
     else:
-        btn = tk.Button(root, text=text, padx=30, pady=20, command=lambda t=text: add_to_input(t))
-    btn.grid(row=row, column=column, padx=5, pady=5)
+        button = tk.Button(root, text=text, padx=20, pady=10, command=lambda t=text: button_click(t))
+    button.grid(row=row, column=column, padx=5, pady=5)
 
+# Add clear button
+clear_button = tk.Button(root, text="Clear", padx=20, pady=10, command=clear)
+clear_button.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
+
+# Run the main loop
 root.mainloop()
