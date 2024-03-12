@@ -1,0 +1,78 @@
+elif Operation == 24:
+            num1=float(input("Enter number in degrees:"))
+            p1=grandparent(num1)
+            print(num1,"degrees is equal to",p1.deg_to_rad(),"radians")
+
+        elif Operation == 25:
+            num1=float(input("Enter number in radians:"))
+            p1=grandparent(num1)
+            print(num1,"radians is equal to",p1.rad_to_deg(),"degrees")
+
+    elif Operation in (12,13,14,15,16,17,18,19,20,21,22,23,26,33):
+        if Operation in(12,13,14,26,33):
+            num1=int(input("Enter number:"))
+            p1=grandparent(num1)
+            if Operation == 12:
+                print("Decimal number",num1,"is equal to binary number",p1.dec_to_bin())
+            elif Operation == 13:
+                print("Decimal number",num1,"is equal to octal number",p1.dec_to_oct())
+            elif Operation == 14:
+                print("Decimal number",num1,"is equal to hexadecimal number",p1.dec_to_hex())
+            elif Operation == 26:
+                print("Factorial of",num1,"is",p1.factorial())
+            elif Operation == 33:
+                print("Natural Logarithm of",num1,"is",p1.ln())
+
+        elif Operation in (15,16,17,18,19,20,21,22,23):
+            num9=input("Enter number:")
+            p9=person(num9)
+            if Operation==15:
+                print("Binary number",num9,"is equal to decimal number",p9.bin_to_dec())
+            elif Operation==16:
+                print("Octal number",num9,"is equal to decimal number",p9.oct_to_dec())
+            elif Operation==17:
+                print("Hexadecimal number",num9,"is equal to decimal number",p9.hex_to_dec())
+            elif Operation==18:
+                print("Binary number",num9,"is equal to octal number",p9.bin_to_oct())
+            elif Operation==19:
+                print("Octal number",num9,"is equal to hexadecimal number",p9.oct_to_hex())
+            elif Operation==20:
+                print("Binary number",num9,"is equal to hexadecimal number",p9.bin_to_hex())
+            elif Operation==21:
+                print("Octal number",num9,"is equal to binary number",p9.oct_to_bin())
+            elif Operation==22:
+                print("Hexadecimal number",num9,"is equal to octal number",p9.hex_to_oct())
+            elif Operation==23:
+                print("Hexadecimal number",num9,"is equal to binary number",p9.hex_to_bin())
+
+    elif Operation in (10,11):
+        num1=float(input("Enter first side:"))
+        num2=float(input("Enter second side:"))
+        num3=float(input("Enter third side:"))
+        p3=child(num3,num2,num1)
+        if Operation ==10:
+            print("Area of triangle is",p3.tri())
+        elif Operation==11:
+            print("Perimeter of triangle is",p3.tri())
+
+    elif Operation in (27,28,29,30,31,32):
+        num1=float(input("Enter value:"))
+        p1=grandparent(num1)
+        if Operation ==27:
+            print("sin({}):".format(num1), p1.sin())
+        elif Operation ==28:
+            print("cos({}):".format(num1), p1.cos())
+        elif Operation ==29:
+            print("tan({}):".format(num1), p1.tan())
+        elif Operation==30:
+            print("arcsin({}):".format(num1), p1.arcsin())
+        elif Operation==31:
+            print("arccos({}):".format(num1), p1.arccos())
+        elif Operation==32:
+            print("arctan({}):".format(num1), p1.arctan())
+
+    ch=input("Enter choice(y/n):")
+    if ch.lower()=="y":
+        continue
+    else:
+        break
