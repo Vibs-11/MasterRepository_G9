@@ -2,7 +2,7 @@ from tkinter import *
 
 root = Tk()
 root.geometry("300x400")
-root.title("SHUBHULATOR")
+root.title("CALCULATOR")
 
 bar = Entry(root,width=22,font=("Ubuntu",18,"normal"),fg="blue",bg="Pale Turquoise")
 bar.place(x=5,y=3)
