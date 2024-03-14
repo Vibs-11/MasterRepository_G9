@@ -1,61 +1,226 @@
-import tkinter as tk
-from tkinter import ttk
+from tkinter import *
+import math
 
-def calculate():
-    num1 = float(entry_num1.get())
-    num2 = float(entry_num2.get())
-    operation = int(operation_var.get())
-
-    if operation == 1:
-        result.set(num1 * num2)
-    elif operation == 2:
-        if num2 != 0:
-            result.set(num1 / num2)
-        else:
-            result.set("Error: Cannot divide by zero.")
-    elif operation == 3:
-        result.set(num1 - num2)
-    elif operation == 4:
-        result.set(num1 ** num2)
+def button_click(char):
+    global calc_operator
+    if char == 'DEL':
+        button_delete()
+    elif char == 'AC':
+        button_clear_all()
+    elif char == '=':
+        button_equal()
+    elif char == 'sin':
+        calculate_trig(math.sin)
+    elif char == 'cos':
+        calculate_trig(math.cos)
+    elif char == 'tan':
+        calculate_trig(math.tan)
+    elif char == 'cot':
+        calculate_trig(lambda x: 1 / math.tan(x))
+    elif char == 'sqrt':
+        calculate_square_root()
+    elif char == 'x!':
+        calculate_factorial()
+    elif char == 'e':
+        button_click(math.e)
+    elif char == 'π':
+        button_click(math.pi)
+    elif char == 'log':
+        calculate_log()
+    elif char == 'ln':
+        calculate_ln()
+    elif char == 'abs':
+        calculate_abs()
+    elif char == 'mod':
+        calculate_mod()
+    elif char == 'div':
+        calculate_division()
+    elif char == 'x^n':
+        calculate_exponential()
+    elif char == 'x^2':
+        calculate_square()
+    elif char == 'x^3':
+        calculate_cube()
+    elif char == '+/-':
+        change_sign()
+    elif char == '%':
+        calculate_percentage()
     else:
-        result.set("Invalid operation")
+        calc_operator += str(char)
+        text_input.set(calc_operator)
 
-# Create the main window
-root = tk.Tk()
-root.title("Fancy Calculator")
-root.geometry("400x500")
-root.configure(bg="#2c3e50")
+def button_clear_all():
+    global calc_operator
+    calc_operator = ""
+    text_input.set("")
 
-# Create and place widgets
-tk.Label(root, text="Fancy Calculator", font=('Helvetica', 16, 'bold'), bg="#2c3e50", fg="#ecf0f1").grid(row=0, column=0, columnspan=4, pady=10)
+def button_delete():
+    global calc_operator
+    text = calc_operator[:-1]
+    calc_operator = text
+    text_input.set(text)
 
-tk.Label(root, text="Enter the first number:", font=('Helvetica', 12), bg="#2c3e50", fg="#ecf0f1").grid(row=1, column=0, pady=5, padx=10, sticky="w")
-entry_num1 = tk.Entry(root, font=('Helvetica', 12))
-entry_num1.grid(row=1, column=1, pady=5, padx=10, columnspan=3, sticky="we")
+def calculate_factorial():
+    global calc_operator
+    try:
+        result = str(math.factorial(int(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
 
-tk.Label(root, text="Enter the second number:", font=('Helvetica', 12), bg="#2c3e50", fg="#ecf0f1").grid(row=2, column=0, pady=5, padx=10, sticky="w")
-entry_num2 = tk.Entry(root, font=('Helvetica', 12))
-entry_num2.grid(row=2, column=1, pady=5, padx=10, columnspan=3, sticky="we")
+def calculate_trig(func):
+    global calc_operator
+    try:
+        result = str(func(math.radians(float(calc_operator))))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
 
-tk.Label(root, text="Select the operation:", font=('Helvetica', 12), bg="#2c3e50", fg="#ecf0f1").grid(row=3, column=0, pady=5, padx=10, sticky="w")
-operation_var = tk.IntVar()
-operation_var.set(1)  # Default to multiplication
-operations = [("Multiplication", 1), ("Division", 2), ("Subtraction", 3), ("Exponent", 4)]
+def calculate_square_root():
+    global calc_operator
+    try:
+        result = str(math.sqrt(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
 
-for i, (text, value) in enumerate(operations):
-    tk.Radiobutton(root, text=text, variable=operation_var, value=value, bg="#2c3e50", fg="#ecf0f1").grid(row=3, column=i+1, padx=10, pady=5, sticky="w")
+def change_sign():
+    global calc_operator
+    if calc_operator:
+        calc_operator = str(-1 * float(calc_operator))
+        text_input.set(calc_operator)
 
-calculate_button = tk.Button(root, text="Calculate", command=calculate, font=('Helvetica', 12), bg="#3498db", fg="#ecf0f1", width=15, height=1)
-calculate_button.grid(row=4, column=0, columnspan=4, pady=10, padx=10, sticky="we")
+def calculate_percentage():
+    global calc_operator
+    try:
+        temp = str(float(calc_operator) / 100)
+    except ValueError:
+        temp = "ERROR"
+    calc_operator = temp
+    text_input.set(temp)
 
-result = tk.StringVar()
-result.set("Result will be shown here")
-result_label = tk.Label(root, textvariable=result, font=('Helvetica', 12), bg="#2c3e50", fg="#ecf0f1")
-result_label.grid(row=5, column=0, columnspan=4, pady=5, padx=10, sticky="we")
+def calculate_log():
+    global calc_operator
+    try:
+        result = str(math.log10(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
 
-# Add some additional styling to make it more fancy
-for widget in [entry_num1, entry_num2, calculate_button, result_label]:
-    widget.config(relief="solid", bd=2)
+def calculate_ln():
+    global calc_operator
+    try:
+        result = str(math.log(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
 
-# Start the main loop
-root.mainloop()
+def calculate_abs():
+    global calc_operator
+    try:
+        result = str(abs(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def calculate_mod():
+    global calc_operator
+    try:
+        result = str(math.fmod(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def calculate_division():
+    global calc_operator
+    try:
+        result = str(1 / float(calc_operator))
+    except ZeroDivisionError:
+        result = "ERROR"
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def calculate_exponential():
+    global calc_operator
+    try:
+        result = str(math.exp(float(calc_operator)))
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def calculate_square():
+    global calc_operator
+    try:
+        result = str(float(calc_operator) ** 2)
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def calculate_cube():
+    global calc_operator
+    try:
+        result = str(float(calc_operator) ** 3)
+    except ValueError:
+        result = "ERROR"
+    calc_operator = result
+    text_input.set(result)
+
+def button_equal():
+    global calc_operator
+    try:
+        temp_op = str(eval(calc_operator))
+    except ZeroDivisionError:
+        temp_op = "ERROR"
+    except Exception as e:
+        temp_op = "ERROR"
+    text_input.set(temp_op)
+    calc_operator = temp_op
+
+# Initialize Tkinter
+tk_calc = Tk()
+tk_calc.title("Scientific Calculator")
+
+# Initialize variables
+calc_operator = ""
+text_input = StringVar()
+
+# Create display entry
+text_display = Entry(tk_calc, font=('Arial', 20), textvariable=text_input, bd=5, insertwidth=5, justify='right')
+text_display.grid(columnspan=5, padx=10, pady=15)
+
+# Define button parameters
+button_params = {'font': ('Arial', 16), 'width': 5, 'height': 2}
+
+# Create buttons
+buttons = [
+    ('abs', 'mod', 'div', 'x!', 'e'),
+    ('sin', 'cos', 'tan', 'cot', 'π'),
+    ('x^2', 'x^3', 'x^n', '+/-', '%'),
+    ('sqrt', 'log', 'ln', '(', ')'),
+    ('7', '8', '9', 'DEL', 'AC'),
+    ('4', '5', '6', '*', '/'),
+    ('1', '2', '3', '+', '-'),
+    ('0', '.', 'EXP', '=', '=')
+]
+
+for i in range(len(buttons)):
+    for j in range(len(buttons[i])):
+        btn_text = buttons[i][j]
+        btn_command = lambda char=btn_text: button_click(char)
+        btn = Button(tk_calc, text=btn_text, command=btn_command, **button_params)
+        btn.grid(row=i + 1, column=j)
+
+# Start Tkinter event loop
+tk_calc.mainloop()
+
