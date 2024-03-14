@@ -1,112 +1,44 @@
-import tkinter as tk
-import math
+print("Calculator to perform operation:: ")
+print(" Select a number to perform corresponding action: ")
+print(
+  " 1 for multiplication, 2 for division, 3 for subtraction, 4 for exponent:: "
+)
 
+def multiplication(num1, num2):
+  mul = num1 * num2
+  print("Multiplication of the two nos. is ::", mul)
 
-class Calculator:
-    def _init_(self, master):
-        self.master = master
-        master.title("Calculator")
-        master.geometry("312x324")
+def division(num1, num2):
+  if num2 != 0:
+    div = num1 / num2
+    print("Division of the two nos. is ::", div)
+  else:
+    print("Error: Division by zero is not allowed")
 
-        self.total = tk.StringVar()
+def subtraction(num1, num2):
+  sub = num1 - num2
+  print("Subtraction of the two nos. is ::", sub)
 
-        self.entry = tk.Entry(master, textvariable=self.total, font=("Helvetica", 20))
-        self.entry.grid(row=0, column=0, columnspan=5, pady=5)
+def exponent(num1, num2):
+  exp = num1 ** num2
+  print("Exponent of the two nos. is ::", exp)
 
-        self.create_buttons()
+Operation = int(input("Select the number from 1, 2, 3, 4 ::"))
 
-    def create_buttons(self):
-        button_list = [
-            ['sin', 'cos', 'tan', '^2', '10^x'],
-            ['7', '8', '9', '/', 'log(x)'],
-            ['4', '5', '6', '*', '1/x'],
-            ['1', '2', '3', '-', 'x!'],
-            ['0', 'C', '=', '+', 'sqrt']
-        ]
+num1 = int(input("Enter the first number::"))
+num2 = int(input("Enter the Second number::"))
 
-        for i, row in enumerate(button_list):
-            for j, button_text in enumerate(row):
-                button = tk.Button(
-                    self.master, text=button_text, width=5, height=3, font=("Helvetica", 20),
-                    command=lambda text=button_text: self.click(text)
-                )
-                button.grid(row=i + 1, column=j, sticky="nsew")
-            self.master.rowconfigure(i + 1, weight=1)
-        self.master.columnconfigure(0, weight=1)
-        self.master.columnconfigure(1, weight=1)
-        self.master.columnconfigure(2, weight=1)
-        self.master.columnconfigure(3, weight=1)
-        self.master.columnconfigure(4, weight=1)
+if (Operation == 1):
+  multiplication(num1, num2)
 
-    def click(self, button_text):
-        if button_text == '=':
-            try:
-                result = eval(self.entry.get())
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'C':
-            self.total.set("")
-        elif button_text == 'sin':
-            try:
-                result = math.sin(math.radians(float(self.entry.get())))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'cos':
-            try:
-                result = math.cos(math.radians(float(self.entry.get())))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'tan':
-            try:
-                result = math.tan(math.radians(float(self.entry.get())))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == '^2':
-            try:
+elif (Operation == 2):
+  division(num1, num2)
 
-                result = float(self.entry.get()) ** 2
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'log(x)':
-            try:
-                result = math.log(float(self.entry.get()))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == '1/x':
-            try:
-                result = 1 / float(self.entry.get())
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'x!':
-            try:
-                result = math.factorial(int(self.entry.get()))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == '10^x':
-            try:
-                result = 10 ** float(self.entry.get())
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        elif button_text == 'sqrt':
-            try:
-                result = math.sqrt(float(self.entry.get()))
-                self.total.set(result)
-            except:
-                self.total.set("Error")
-        else:
-            self.total.set(self.entry.get() + button_text)
+elif (Operation == 3):
+  subtraction(num1, num2)
 
+elif (Operation == 4):
+  exponent(num1, num2)
 
-if _name_ == '_main_':
-    root = tk.Tk()
-    my_calculator = Calculator(root)
-    root.mainloop()
+else:
+  print("Invalid operation selected")
