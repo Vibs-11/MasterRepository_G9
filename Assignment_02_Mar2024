@@ -1,0 +1,38 @@
+Assignment:
+
+Title: Simulation and Resolution of Merge Conflict on GitHub
+
+Objective:
+To understand the process of creating and resolving merge conflicts on GitHub.
+
+Instructions:
+
+Step 1: Open your GitHub account and move to you repository on Github.
+
+Step 2: Switch to the "main" branch of the repository.
+
+Step 3: Create a new code file named "Codefile" in the "main" branch. Add the following text to the file:
+```
+"This is the file to create merge conflict."
+```
+
+Step 4: Switch to another branch named "GitBranch_01".
+
+Step 5: Create a new code file named "Codefile1" in the "GitBranch_01" branch. Add the following text to the file:
+```
+"This is the file to create merge conflict.
+
+This file is in another branch!!
+
+We are here to create conflict!!"
+```
+
+Step 6: Return to the "main" branch.
+
+Step 7: Create a pull request to merge both branches. 
+
+Step 8: Resolve the conflict. Merge both branches after resolving the conflict.
+
+Submission:
+Submit a report detailing the steps you followed to simulate and resolve the merge conflict. Include screenshots of the GitHub interface at various stages of the process to demonstrate your understanding. Additionally, provide a brief explanation of how you resolved the conflict and merged the branches successfully.
+

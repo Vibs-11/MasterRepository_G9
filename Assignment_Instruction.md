@@ -11,7 +11,7 @@ Instructions:
 
 2. Open in Visual Studio Code:
    - Clone your forked repository to your local machine.
-   - Open Visual Studio Code and navigate to the cloned repository folder.
+ 
 
 3. Tweak Python Code:
    - Open the Python file in Visual Studio Code.
@@ -22,12 +22,7 @@ Instructions:
    - Rename the Python file according to the specified format: `<Name>_<Roll No.>.py`
    - Replace `<Name>` with your name and `<Roll No.>` with your roll number.
 
-5. Add, Commit, and Push Changes:
-   - Stage the modified Python file for commit.
-   - Commit the changes with a descriptive commit message explaining the modifications made.
-   - Push the changes to your forked repository on GitHub.
-
-6. Send Pull Request:
+5. Send Pull Request:
    - Once you have pushed the changes to your forked repository, navigate to your GitHub account.
    - Go to your forked repository and click on the "Pull Request" button.
    - Submit a pull request to the original repository, including a brief description of the changes made.
