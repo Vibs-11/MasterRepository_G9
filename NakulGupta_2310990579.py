@@ -1,97 +1,95 @@
 import tkinter as tk
-from tkinter import messagebox
-from math import sqrt
-from tkinter import ttk
+import math
 
-def perform_operation():
+# Function to update the display
+def update_display(value):
+    display_var.set(value)
+
+# Function to perform arithmetic operation
+def calculate():
     try:
-        num1 = float(entry_num1.get())
-        operation = operation_var.get()
+        result = eval(display_var.get())
+        update_display(result)
+    except:
+        update_display("Error")
 
-        if operation != 5:  
-            num2 = float(entry_num2.get())
-        else:
-            num2 = None
+# Function to clear the display
+def clear_display():
+    update_display("")
 
-        if operation == 1:
-            result = num1 * num2
-        elif operation == 2:
-            result = num1 / num2
-        elif operation == 3:
-            result = num1 - num2
-        elif operation == 4:
-            result = num1 + num2
-        elif operation == 5:
-            result = sqrt(num1)
-        else:
-            result = "Invalid Operation"
+# Function to calculate square root
+def calculate_sqrt():
+    try:
+        result = math.sqrt(float(display_var.get()))
+        update_display(result)
+    except:
+        update_display("Error")
 
-        result_label.config(text=f"Result: {result}", fg="white")
+# Function to add exponentiation
+def calculate_power():
+    try:
+        result = eval(display_var.get()) ** 2
+        update_display(result)
+    except:
+        update_display("Error")
 
-    except ValueError:
-        messagebox.showerror("Error", "Please enter valid numbers.")
+# Function to add factorial
+def calculate_factorial():
+    try:
+        result = math.factorial(int(display_var.get()))
+        update_display(result)
+    except:
+        update_display("Error")
 
-def show_hide_entry():
-    if operation_var.get() == 5:  
-        label_num1.config(text="Enter the number:", bg="black", fg="white")
-    else:
-        label_num1.config(text="Enter the first number:", bg="black", fg="white")
+# Function to add pi value
+def add_pi():
+    display_var.set(display_var.get() + str(math.pi))
 
-    if operation_var.get() == 5:  
-        label_num2.config(text="Enter the number:", bg="black", fg="white")
-        label_num2.grid_remove()
-        entry_num2.grid_remove()
-    else:
-        label_num2.config(text="Enter the second number:", bg="black", fg="white")
-        label_num2.grid()
-        entry_num2.grid()
+# Function to calculate result when equals button is pressed
+def calculate_result():
+    calculate()
+
 
 root = tk.Tk()
 root.title("Nakul's Calculator")
-root.configure(bg="black") 
+root.configure(bg='black')
 
-label_num1 = tk.Label(root, text="Enter the first number:", bg="black", fg="white")  # Set background to black and font color to white
-entry_num1 = tk.Entry(root)
 
-label_num2 = tk.Label(root, text="Enter the second number:", bg="black", fg="white")  # Set background to black and font color to white
-entry_num2 = tk.Entry(root)
+display_var = tk.StringVar()
 
-label_operation = tk.Label(root, text="Select the operation:", bg="black", fg="white")  # Set background to black and font color to white
-operation_var = tk.IntVar()
-operation_var.set(1)
 
-# Style for Rounded Buttons
-style = ttk.Style()
-style.configure('TButton', foreground='black', background='light grey', borderwidth=0, relief="flat", padding=10)
+display = tk.Entry(root, textvariable=display_var, font=("Arial", 20), bg='black', fg='white', bd=0, justify="right")
+display.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
-# Buttons for Operations
-button_multiply = ttk.Button(root, text="Multiplication", command=lambda: [operation_var.set(1), show_hide_entry()], style='TButton')
-button_divide = ttk.Button(root, text="Division", command=lambda: [operation_var.set(2), show_hide_entry()], style='TButton')
-button_subtract = ttk.Button(root, text="Subtraction", command=lambda: [operation_var.set(3), show_hide_entry()], style='TButton')
-button_add = ttk.Button(root, text="Addition", command=lambda: [operation_var.set(4), show_hide_entry()], style='TButton')
-button_sqrt = ttk.Button(root, text="Square Root", command=lambda: [operation_var.set(5), show_hide_entry()], style='TButton')
+# Buttons for digits and operations
+buttons = [
+    ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
+    ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
+    ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
+    ('0', 4, 0), ('.', 4, 1), ('+', 4, 3)
+]
 
-# Themed Rounded Button
-button_calculate = ttk.Button(root, text="Calculate", command=perform_operation, style='TButton')
+for (text, row, column) in buttons:
+    button = tk.Button(root, text=text, font=("Arial", 20), bg='grey', fg='blue', bd=2, relief="ridge",
+                       command=lambda t=text: display_var.set(display_var.get() + t))
+    button.grid(row=row, column=column, sticky="nsew")
 
-result_label = tk.Label(root, text="Result: ", bg="black", fg="white")  # Set background to black and font color to white
+# Additional scientific calculator buttons
+extra_buttons = [
+    ('C', clear_display, 1, 4), ('√', calculate_sqrt, 2, 4), ('x^2', calculate_power, 3, 4),
+    ('n!', calculate_factorial, 4, 4), ('π', add_pi, 0, 4), ('=', calculate_result, 4, 2)
+]
 
-label_num1.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
-entry_num1.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
+for (text, command, row, column) in extra_buttons:
+    button = tk.Button(root, text=text, font=("Arial", 20), bg='grey', fg='blue', bd=2, relief="ridge",
+                       command=command)
+    button.grid(row=row, column=column, sticky="nsew")
 
-label_num2.grid(row=1, column=0, padx=10, pady=10, sticky=tk.W)
-entry_num2.grid(row=1, column=1, padx=10, pady=10, sticky=tk.W)
+# Configure row and column weights
+for i in range(5):
+    root.grid_rowconfigure(i, weight=1)
+for i in range(5):
+    root.grid_columnconfigure(i, weight=1)
 
-label_operation.grid(row=2, column=0, padx=10, pady=10, sticky=tk.W)
-
-# Buttons placement
-button_multiply.grid(row=2, column=1, padx=10, pady=5, sticky=tk.W)
-button_divide.grid(row=3, column=1, padx=10, pady=5, sticky=tk.W)
-button_subtract.grid(row=4, column=1, padx=10, pady=5, sticky=tk.W)
-button_add.grid(row=5, column=1, padx=10, pady=5, sticky=tk.W)
-button_sqrt.grid(row=6, column=1, padx=10, pady=5, sticky=tk.W)
-
-button_calculate.grid(row=7, column=0, columnspan=2, padx=10, pady=10, sticky="ew")  # Use sticky="ew" to make the button fit the horizontal space
-result_label.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
 root.mainloop()
