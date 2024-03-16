@@ -1,61 +1,264 @@
-import tkinter as tk
-from tkinter import ttk
+from tkinter import *
+import math
+import numpy as np
 
-def calculate():
-    num1 = float(entry_num1.get())
-    num2 = float(entry_num2.get())
-    operation = int(operation_var.get())
+'''
+Functions
+'''
+# Function to add in the entry of text display
+def button_click(char):
+    global calc_operator
+    calc_operator += str(char)
+    text_input.set(calc_operator)
 
-    if operation == 1:
-        result.set(num1 * num2)
-    elif operation == 2:
-        if num2 != 0:
-            result.set(num1 / num2)
-        else:
-            result.set("Error: Cannot divide by zero.")
-    elif operation == 3:
-        result.set(num1 - num2)
-    elif operation == 4:
-        result.set(num1 ** num2)
+# Function to clear the whole entry of text display
+def button_clear_all():
+    global calc_operator
+    calc_operator = ""
+    text_input.set("")
+
+# Function to delete one by one from the last in the entry of text display
+def button_delete():
+    global calc_operator
+    text = calc_operator[:-1]
+    calc_operator = text
+    text_input.set(text)
+
+# Function to calculate the factorial of a number
+def factorial(n):
+    if n==0 or n==1:
+        return 1
     else:
-        result.set("Invalid operation")
+        return n*factorial(n-1)
 
-# Create the main window
-root = tk.Tk()
-root.title("Simple Calculator")
-root.geometry("400x500")
-root.configure(bg="#f0f0f0")
+def fact_func():
+    global calc_operator
+    result = str(factorial(int(calc_operator)))
+    calc_operator = result
+    text_input.set(result)
 
-# Create and place widgets
-tk.Label(root, text="Simple Calculator", font=('Helvetica', 16, 'bold'), bg="#f0f0f0").grid(row=0, column=0, columnspan=4, pady=10)
+# Function to calculate trigonometric numbers of an angle
+def trig_sin():
+    global calc_operator
+    result = str(math.sin(math.radians(int(calc_operator))))
+    calc_operator = result
+    text_input.set(result)
 
-tk.Label(root, text="Enter the first number:", font=('Helvetica', 12), bg="#f0f0f0").grid(row=1, column=0, pady=5, padx=10, sticky="w")
-entry_num1 = tk.Entry(root, font=('Helvetica', 12))
-entry_num1.grid(row=1, column=1, pady=5, padx=10, columnspan=3, sticky="we")
+def trig_cos():
+    global calc_operator
+    result = str(math.cos(math.radians(int(calc_operator))))
+    calc_operator = result
+    text_input.set(result)
 
-tk.Label(root, text="Enter the second number:", font=('Helvetica', 12), bg="#f0f0f0").grid(row=2, column=0, pady=5, padx=10, sticky="w")
-entry_num2 = tk.Entry(root, font=('Helvetica', 12))
-entry_num2.grid(row=2, column=1, pady=5, padx=10, columnspan=3, sticky="we")
+def trig_tan():
+    global calc_operator
+    result = str(math.tan(math.radians(int(calc_operator))))
+    calc_operator = result
+    text_input.set(result)
 
-tk.Label(root, text="Select the operation:", font=('Helvetica', 12), bg="#f0f0f0").grid(row=3, column=0, pady=5, padx=10, sticky="w")
-operation_var = tk.IntVar()
-operation_var.set(1)  # Default to multiplication
-operations = [("Multiplication", 1), ("Division", 2), ("Subtraction", 3), ("Exponent", 4)]
+def trig_cot():
+    global calc_operator
+    result = str(1/math.tan(math.radians(int(calc_operator))))
+    calc_operator = result
+    text_input.set(result)
 
-for i, (text, value) in enumerate(operations):
-    tk.Radiobutton(root, text=text, variable=operation_var, value=value).grid(row=3, column=i+1, padx=10, pady=5, sticky="w")
+# Function to find the square root of a number
+def square_root():
+    global calc_operator
+    if int(calc_operator)>=0:
+        temp = str(eval(calc_operator+'**(1/2)'))
+        calc_operator = temp
+    else:
+        temp = "ERROR"
+    text_input.set(temp)
 
-calculate_button = tk.Button(root, text="Calculate", command=calculate, font=('Helvetica', 12), bg="#4caf50", fg="white", width=15, height=1)
-calculate_button.grid(row=4, column=0, columnspan=4, pady=10, padx=10, sticky="we")
+# Function to find the third root of a number
+def third_root():
+    global calc_operator
+    if int(calc_operator)>=0:
+        temp = str(eval(calc_operator+'**(1/3)'))
+        calc_operator = temp
+    else:
+        temp = "ERROR"
+    text_input.set(temp)
 
-result = tk.StringVar()
-result.set("Result will be shown here")
-result_label = tk.Label(root, textvariable=result, font=('Helvetica', 12), bg="#f0f0f0")
-result_label.grid(row=5, column=0, columnspan=4, pady=5, padx=10, sticky="we")
+# Function to change the sign of number
+def sign_change():
+    global calc_operator
+    if calc_operator[0]=='-':
+        temp = calc_operator[1:]
+    else:
+        temp = '-'+calc_operator
+    calc_operator = temp
+    text_input.set(temp)    
 
-# Add some additional styling to make it more fancy
-for widget in [entry_num1, entry_num2, calculate_button, result_label]:
-    widget.config(relief="solid", bd=2)
+# Function to calculate the percentage of a number
+def percent():
+    global calc_operator
+    temp = str(eval(calc_operator+'/100'))
+    calc_operator = temp
+    text_input.set(temp)
 
-# Start the main loop
-root.mainloop()
+# Funtion to find the result of an operation
+def button_equal():
+    global calc_operator
+    temp_op = str(eval(calc_operator))
+    text_input.set(temp_op)
+    calc_operator = temp_op
+
+'''
+Variables
+'''
+sin, cos, tan = math.sin, math.cos, math.tan
+log, ln = math.log10, math.log
+e = math.exp
+p = math.pi
+E = '*10**'
+
+tk_calc = Tk()
+tk_calc.configure(bg="#293C4A", bd=10)
+tk_calc.title("Mayank's Calculator")
+
+calc_operator = ""
+text_input = StringVar()
+
+text_display = Entry(tk_calc, font=('sans-serif', 20, 'bold'), textvariable=text_input,
+                     bd=5, insertwidth = 5, bg='#BBB', justify='right').grid(columnspan=5, padx = 10, pady = 15)
+
+button_params = {'bd':5, 'fg':'#BBB', 'bg':'#3C3636', 'font':('sans-serif', 20, 'bold')}
+button_params_main = {'bd':5, 'fg':'#000', 'bg':'#BBB', 'font':('sans-serif', 20, 'bold')}
+
+'''
+Buttons
+'''
+#--1st row--
+# Sine of an angle in degrees
+sine = Button(tk_calc, button_params, text='sin',
+             command=trig_sin).grid(row=2, column=0, sticky="nsew")
+# Cosine of an angle in degrees
+cosine = Button(tk_calc, button_params, text='cos',
+             command=trig_cos).grid(row=2, column=1, sticky="nsew")
+# Tangent of an angle in degrees
+tangent = Button(tk_calc, button_params, text='tan',
+             command=trig_tan).grid(row=2, column=2, sticky="nsew")
+# Cotangent of an angle in degrees
+cotangent = Button(tk_calc, button_params, text='cot',
+             command=trig_cot).grid(row=2, column=3, sticky="nsew")
+# Pi(3.14...) number 
+pi_num = Button(tk_calc, button_params, text='π',
+                command=lambda:button_click(str(math.pi))).grid(row=2, column=4, sticky="nsew")
+
+#--2nd row--
+# Power of 2
+second_power = Button(tk_calc, button_params, text='x\u00B2',
+             command=lambda:button_click('**2')).grid(row=3, column=0, sticky="nsew")
+# Power of 3
+third_power = Button(tk_calc, button_params, text='x\u00B3',
+             command=lambda:button_click('**3')).grid(row=3, column=1, sticky="nsew")
+# Power of n
+nth_power = Button(tk_calc, button_params, text='x^n',
+             command=lambda:button_click('**')).grid(row=3, column=2, sticky="nsew")
+# Inverse number
+inv_power = Button(tk_calc, button_params, text='x\u207b\xb9',
+             command=lambda:button_click('**(-1)')).grid(row=3, column=3, sticky="nsew")
+# Powers of 10
+tens_powers = Button(tk_calc, button_params, text='10^x', font=('sans-serif', 15, 'bold'),
+                     command=lambda:button_click('10**')).grid(row=3, column=4, sticky="nsew")
+
+#--3rd row--
+# Square root of a number
+square_root = Button(tk_calc, button_params, text='\u00B2\u221A',
+                     command=square_root).grid(row=4, column=0, sticky="nsew")
+# Third root of a number
+third_root = Button(tk_calc, button_params, text='\u00B3\u221A',
+                    command=third_root).grid(row=4, column=1, sticky="nsew")
+# nth root of a number
+nth_root = Button(tk_calc, button_params, text='\u221A',
+                  command=lambda:button_click('**(1/')).grid(row=4, column=2, sticky="nsew")
+# Logarithm of a number with base 10
+log_base10 = Button(tk_calc, button_params, text='log\u2081\u2080', font=('sans-serif', 16, 'bold'),
+                   command=lambda:button_click('log(')).grid(row=4, column=3, sticky="nsew")
+# Logarithm of a number with base e (ln)
+log_basee = Button(tk_calc, button_params, text='ln',
+                   command=lambda:button_click('ln(')).grid(row=4, column=4, sticky="nsew")
+
+#--4th row--
+# Add a left parentheses
+left_par = Button(tk_calc, button_params, text='(',
+                  command=lambda:button_click('(')).grid(row=5, column=0, sticky="nsew")
+# Add a right parentheses
+right_par = Button(tk_calc, button_params, text=')',
+                   command=lambda:button_click(')')).grid(row=5, column=1, sticky="nsew")   
+# Change the sign of a number
+signs = Button(tk_calc, button_params, text='\u00B1',
+               command=sign_change).grid(row=5, column=2, sticky="nsew")
+# Transform number to percentage
+percentage = Button(tk_calc, button_params, text='%',
+               command=percent).grid(row=5, column=3, sticky="nsew")
+# Calculate the function e^x
+ex = Button(tk_calc, button_params, text='e^x',
+               command=lambda:button_click('e(')).grid(row=5, column=4, sticky="nsew")
+
+#--5th row--
+button_7 = Button(tk_calc, button_params_main, text='7',
+                  command=lambda:button_click('7')).grid(row=6, column=0, sticky="nsew")
+button_8 = Button(tk_calc, button_params_main, text='8',
+                  command=lambda:button_click('8')).grid(row=6, column=1, sticky="nsew")
+button_9 = Button(tk_calc, button_params_main, text='9',
+                  command=lambda:button_click('9')).grid(row=6, column=2, sticky="nsew")
+delete_one = Button(tk_calc, bd=5, fg='#000', font=('sans-serif', 20, 'bold'),
+              text='DEL', command=button_delete, bg='#db701f').grid(row=6, column=3, sticky="nsew")
+delete_all = Button(tk_calc, bd=5, fg='#000', font=('sans-serif', 20, 'bold'),
+              text='AC', command=button_clear_all, bg='#db701f').grid(row=6, column=4, sticky="nsew")
+
+#--6th row--
+button_4 = Button(tk_calc, button_params_main, text='4',
+                  command=lambda:button_click('4')).grid(row=7, column=0, sticky="nsew")
+button_5 = Button(tk_calc, button_params_main, text='5',
+                  command=lambda:button_click('5')).grid(row=7, column=1, sticky="nsew")
+button_6 = Button(tk_calc, button_params_main, text='6',
+                  command=lambda:button_click('6')).grid(row=7, column=2, sticky="nsew")
+mul = Button(tk_calc, button_params_main, text='*',
+             command=lambda:button_click('*')).grid(row=7, column=3, sticky="nsew")
+div = Button(tk_calc, button_params_main, text='/',
+             command=lambda:button_click('/')).grid(row=7, column=4, sticky="nsew")
+
+#--7th row--
+button_1 = Button(tk_calc, button_params_main, text='1',
+                  command=lambda:button_click('1')).grid(row=8, column=0, sticky="nsew")
+button_2 = Button(tk_calc, button_params_main, text='2',
+                  command=lambda:button_click('2')).grid(row=8, column=1, sticky="nsew")
+button_3 = Button(tk_calc, button_params_main, text='3',
+                  command=lambda:button_click('3')).grid(row=8, column=2, sticky="nsew")
+add = Button(tk_calc, button_params_main, text='+',
+             command=lambda:button_click('+')).grid(row=8, column=3, sticky="nsew")
+sub = Button(tk_calc, button_params_main, text='-',
+             command=lambda:button_click('-')).grid(row=8, column=4, sticky="nsew")
+
+#--8th row--
+button_0 = Button(tk_calc, button_params_main, text='0',
+                  command=lambda:button_click('0')).grid(row=9, column=0, sticky="nsew")
+point = Button(tk_calc, button_params_main, text='.',
+               command=lambda:button_click('.')).grid(row=9, column=1, sticky="nsew")
+exp = Button(tk_calc, button_params_main, text='EXP', font=('sans-serif', 16, 'bold'),
+             command=lambda:button_click(E)).grid(row=9, column=2, sticky="nsew")
+equal = Button(tk_calc, button_params_main, text='=',
+               command=button_equal).grid(row=9, columnspan=2, column=3, sticky="nsew")
+
+
+tk_calc.mainloop()
+import tkinter as tk
+import math
+import numpy as np
+from ttkthemes import ThemedTk
+
+# ... (rest of the imports and function definitions)
+
+if __name__ == "__main__":
+    # Replace tk.Tk() with ThemedTk() and set the theme
+    tk_calc = ThemedTk(theme="arc")
+    tk_calc.get_themes()
+
+    # ... (rest of the code)
+
+    tk_calc.mainloop()
