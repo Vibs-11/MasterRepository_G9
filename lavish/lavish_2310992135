@@ -1,0 +1,112 @@
+import tkinter as tk
+import math
+
+# Function to update the display when a button is clicked
+def button_click(symbol):
+    current = display_var.get()
+    if symbol == 'C':
+        display_var.set('')
+    elif symbol == '=':
+        try:
+            result = eval(current)
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'sin':
+        try:
+            result = math.sin(math.radians(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'cos':
+        try:
+            result = math.cos(math.radians(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'tan':
+        try:
+            result = math.tan(math.radians(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'asin':
+        try:
+            result = math.degrees(math.asin(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'acos':
+        try:
+            result = math.degrees(math.acos(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'atan':
+        try:
+            result = math.degrees(math.atan(float(current)))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'log':
+        try:
+            result = math.log10(float(current))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'exp':
+        try:
+            result = math.exp(float(current))
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == 'x^2':
+        try:
+            result = float(current) ** 2
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    elif symbol == '1/x':
+        try:
+            result = 1 / float(current)
+            display_var.set(str(result))
+        except:
+            display_var.set('Error')
+    else:
+        display_var.set(current + symbol)
+
+root = tk.Tk()
+root.title("Scientific Calculator")
+
+# Create a StringVar to hold the current display value
+display_var = tk.StringVar()
+
+# Create the display widget
+display = tk.Entry(root, textvariable=display_var, justify='right', font=('Arial', 20), foreground='black')  # Set input text color to black
+display.grid(row=0, column=0, columnspan=4)
+
+# Define button symbols
+button_symbols = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', '.', '=', '+',
+    'C', 'sin', 'cos', 'tan',
+    'asin', 'acos', 'atan', 'log', 'exp', 'x^2', '1/x'
+]
+
+# Create buttons
+row = 1
+col = 0
+for symbol in button_symbols:
+    tk.Button(root, text=symbol, width=5, height=2, command=lambda sym=symbol: button_click(sym)).grid(row=row, column=col)
+    col += 1
+    if col > 3:
+        col = 0
+        row += 1
+
+# Create a label for output
+output_label = tk.Label(root, font=('Arial', 20), foreground='red')  # Set output text color to red
+output_label.grid(row=row, column=0, columnspan=4)
+
+root.mainloop()
