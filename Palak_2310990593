@@ -1,0 +1,145 @@
+import math
+import tkinter as tk
+
+window = tk.Tk()
+window.title("Calculator")
+window.geometry("300x400")
+
+
+def button_click(number):
+    if number == 'sin':
+        try:
+            theta = float(field.get("1.0", "end-1c"))
+            result = math.sin(math.radians(theta))
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, str(result))
+        except ValueError:
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, "Error")
+    elif number == 'cos':
+        try:
+            theta = float(field.get("1.0", "end-1c"))
+            result = math.cos(math.radians(theta))
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, str(result))
+        except ValueError:
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, "Error")
+    elif number == 'tan':
+        try:
+            theta = float(field.get("1.0", "end-1c"))
+            result = math.tan(math.radians(theta))
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, str(result))
+        except ValueError:
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, "Error")
+    elif number == '√':
+        try:
+            number = float(field.get("1.0", "end-1c"))
+            result = math.sqrt(number)
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, str(result))
+        except ValueError:
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, "Error")
+    elif number == "log":
+        try:
+            number = float(field.get("1.0", "end-1c"))
+            result = math.log10(number)
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, str(result))
+        except ValueError:
+            field.delete(1.0, tk.END)
+            field.insert(tk.END, "Error")
+    else:
+        current = field.get("1.0", "end-1c")
+        field.delete(1.0, tk.END)
+        field.insert(tk.END, str(current) + str(number))
+
+
+def clear_field():
+    field.delete(1.0, tk.END)
+
+
+def backspace():
+    current = field.get("1.0", "end-1c")
+    field.delete(1.0, tk.END)
+    field.insert(tk.END, str(current)[1:])
+
+
+def calculate(event=None):
+    expression = field.get("1.0", "end-1c")
+    try:
+        result = eval(expression)
+        field.delete(1.0, tk.END)
+        field.insert(tk.END, str(result))
+    except:
+        field.delete(1.0, tk.END)
+        field.insert(tk.END, "Error")
+
+
+def scientific_calc():
+    window.geometry("390x400")
+    sin = tk.Button(window, text="sin", width=5, height=2, command=lambda: button_click("sin"), font=('Calibri', 12))
+    sin.place(x=240, y=130)
+    cos = tk.Button(window, text="cos", width=5, height=2, command=lambda: button_click("cos"), font=('Calibri', 12))
+    cos.place(x=240, y=200)
+    tan = tk.Button(window, text="tan", width=5, height=2, command=lambda: button_click("tan"), font=('Calibri', 12))
+    tan.place(x=240, y=270)
+    sqrt = tk.Button(window, text="√", width=5, height=2, command=lambda: button_click("√"), font=('Calibri', 12))
+    sqrt.place(x=320, y=270)
+    log = tk.Button(window, text="log", width=5, height=2, command=lambda: button_click("log"), font=('Calibri', 12))
+    log.place(x=240, y=340)
+    field.config(width=45, height=2)
+    bspace.place(x=320, y=60)
+    sub.place(x=320, y=130)
+    add.place(x=320, y=200)
+    equal.place(x=320, y=340)
+
+
+field = tk.Text(window, width=35, height=2)
+field.place(x=10, y=20)
+clear = tk.Button(window, text="CE", width=5, height=2, command=clear_field, font=('Calibri', 12))
+clear.place(x=85, y=60)
+divide = tk.Button(window, text="÷", width=5, height=2, command=lambda: button_click("/"), font=('Calibri', 12))
+divide.place(x=165, y=60)
+multiply = tk.Button(window, text="×", width=5, height=2, command=lambda: button_click("*"), font=('Calibri', 12))
+multiply.place(x=240, y=60)
+bspace = tk.Button(window, text="⌫", width=5, height=2, command=backspace, font=('Calibri', 12))
+bspace.place(x=240, y=130)
+sub = tk.Button(window, text="-", width=5, height=2, command=lambda: button_click("-"), font=('Calibri', 12))
+sub.place(x=240, y=200)
+add = tk.Button(window, text="+", width=5, height=2, command=lambda: button_click("+"), font=('Calibri', 12))
+add.place(x=240, y=270)
+equal = tk.Button(window, text="=", width=5, height=2, command=calculate, font=('Calibri', 12))
+equal.place(x=240, y=340)
+seven = tk.Button(window, text="7", width=5, height=2, command=lambda: button_click("7"), font=('Calibri', 12))
+seven.place(x=10, y=130)
+four = tk.Button(window, text="4", width=5, height=2, command=lambda: button_click("4"), font=('Calibri', 12))
+four.place(x=10, y=200)
+one = tk.Button(window, text="1", width=5, height=2, command=lambda: button_click("1"), font=('Calibri', 12))
+one.place(x=10, y=270)
+eight = tk.Button(window, text="8", width=5, height=2, command=lambda: button_click("8"), font=('Calibri', 12))
+eight.place(x=85, y=130)
+five = tk.Button(window, text="5", width=5, height=2, command=lambda: button_click("5"), font=('Calibri', 12))
+five.place(x=85, y=200)
+two = tk.Button(window, text="2", width=5, height=2, command=lambda: button_click("2"), font=('Calibri', 12))
+two.place(x=85, y=270)
+nine = tk.Button(window, text="9", width=5, height=2, command=lambda: button_click("9"), font=('Calibri', 12))
+nine.place(x=165, y=130)
+six = tk.Button(window, text="6", width=5, height=2, command=lambda: button_click("6"), font=('Calibri', 12))
+six.place(x=165, y=200)
+three = tk.Button(window, text="3", width=5, height=2, command=lambda: button_click("3"), font=('Calibri', 12))
+three.place(x=165, y=270)
+zero = tk.Button(window, text="0", width=16, height=2, command=lambda: button_click("0"), font=('Calibri', 12))
+zero.place(x=10, y=340)
+decimal = tk.Button(window, text=".", width=5, height=2, command=lambda: button_click("."), font=('Calibri', 12))
+decimal.place(x=165, y=340)
+scientific_button = tk.Button(window, text="SC", width=5, height=2, command=scientific_calc, font=('Calibri', 12))
+scientific_button.place(x=10, y=60)
+frame = tk.Frame(window)
+frame.pack(padx=10, pady=10)
+
+window.bind("<Return>", calculate)
+window.mainloop()
